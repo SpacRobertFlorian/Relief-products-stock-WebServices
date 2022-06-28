@@ -1,0 +1,28 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://localhost:8082/soap-products"
+           targetNamespace="http://localhost:8082/soap-products" elementFormDefault="qualified">
+
+    <xs:element name="GetProductRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetProductResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="product" type="tns:product"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="product">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="product_category" type="xs:string"/>
+            <xs:element name="stock" type="xs:long"/>
+            <xs:element name="uuid" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
