@@ -7,10 +7,6 @@ import javax.persistence.*;
 
 @Entity(name = "Product")
 @Table(name = "product")
-@NaturalIdCache
-//@org.hibernate.annotations.Cache(
-//        usage = CacheConcurrencyStrategy.READ_WRITE
-//)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
