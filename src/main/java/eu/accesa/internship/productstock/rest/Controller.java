@@ -1,6 +1,8 @@
 package eu.accesa.internship.productstock.rest;
 
 import eu.accesa.internship.productstock.model.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/products")
 public class Controller {
-
+    private final Logger logger = LoggerFactory.getLogger(Controller.class);
     private final RestService restService;
 
     @Autowired
@@ -27,11 +29,13 @@ public class Controller {
     //Postman example: localhost:8082/products?name=Water,Chocolate
     @GetMapping
     public ResponseEntity<List<Product>> getProduct(@RequestParam List<String> name) {
+        logger.info("Creating response");
         List<Product> products = new ArrayList<>();
         for (String s : name) {
             Optional<Product> product = restService.getProductByName(s);
             product.ifPresent(products::add);
         }
+        logger.info("Sending response: " + restService.toString());
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }

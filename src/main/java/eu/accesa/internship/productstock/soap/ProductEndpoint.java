@@ -6,6 +6,8 @@ import localhost._8082.soap_products.GetProductRequest;
 import localhost._8082.soap_products.GetProductResponse;
 import localhost._8082.soap_products.List;
 import localhost._8082.soap_products.ListName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -16,6 +18,7 @@ import java.util.Optional;
 
 @Endpoint
 public class ProductEndpoint {
+    private final Logger logger = LoggerFactory.getLogger(ProductEndpoint.class);
     private static final String NAMESPACE_URI = "http://localhost:8082/soap-products";
 
     private final ProductRepository productRepository;
@@ -28,6 +31,8 @@ public class ProductEndpoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetProductRequest")
     @ResponsePayload
     public GetProductResponse getProduct(@RequestPayload GetProductRequest request) {
+        logger.info("Creating response");
+
         GetProductResponse response = new GetProductResponse();
         List productListResponse = new List();
         response.setList(productListResponse);
@@ -37,17 +42,20 @@ public class ProductEndpoint {
             Optional<Product> product = productRepository.findByName(name);
             product.ifPresent(value -> response.getList().getProduct().add(convertToSOAPObj(product.get())));
         }
+        logger.info("Sending response: " + request.getList().toString());
+
         return response;
     }
 
     private localhost._8082.soap_products.Product convertToSOAPObj(Product product) {
-
+        logger.info("Converting data to SOAP object");
         localhost._8082.soap_products.Product productSoap = new localhost._8082.soap_products.Product();
         productSoap.setStock(product.getStock());
         productSoap.setName(product.getName());
         productSoap.setUuid(product.getUuid());
         productSoap.setProductCategory(product.getProductCategory().toString());
 
+        logger.info(product + "->" + productSoap);
         return productSoap;
     }
 }
