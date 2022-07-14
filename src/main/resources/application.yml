@@ -3,9 +3,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/relief-product-stock?autoReconnect=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/relief_product_stock?autoReconnect=true&useSSL=false&serverTimezone=UTC
     username: root
-    password: parola
+    password: Amcont123!1
   jpa:
     hibernate:
       ddl-auto: create-drop

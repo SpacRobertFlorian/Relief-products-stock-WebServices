@@ -27,12 +27,13 @@ public class Controller {
     }
 
     //Postman example: localhost:8082/products?name=Water,Chocolate
+    //TODO refacut logurile
     @GetMapping
-    public ResponseEntity<List<Product>> getProduct(@RequestParam List<String> name) {
+    public ResponseEntity<List<Product>> getProduct(@RequestParam List<String> uuids) {
         logger.info("Creating response");
         List<Product> products = new ArrayList<>();
-        for (String s : name) {
-            Optional<Product> product = restService.getProductByName(s);
+        for (String uuid : uuids) {
+            Optional<Product> product = restService.getProductByUuid(uuid);
             product.ifPresent(products::add);
         }
         logger.info("Sending response: " + restService.toString());

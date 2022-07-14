@@ -21,4 +21,12 @@ public class RestService {
         return productRepository.findByName(name);
     }
 
+    public Optional<Product> getProductByUuid(String uuid) {
+        return productRepository.findProductByUuid(uuid);
+    }
+
+    public Optional<Product> getProductByUUID(String name) {
+        return productRepository.findByName(name);
+    }
+
 }
