@@ -39,7 +39,7 @@ public class ProductEndpoint {
         ListOfUuid products = request.getList();
 
         for (String uuid : products.getUuid()) {
-            Optional<Product> product = productRepository.findByName(uuid);
+            Optional<Product> product = productRepository.findProductByUuid(uuid);
             product.ifPresent(value -> response.getList().getProduct().add(convertToSOAPObj(product.get())));
         }
         logger.info("Sending response: " + request.getList().toString());
