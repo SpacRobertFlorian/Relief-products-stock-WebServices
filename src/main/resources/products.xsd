@@ -4,7 +4,7 @@
     <xs:element name="GetProductRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="list" type="tns:listName"/>
+                <xs:element name="list" type="tns:listOfUuid"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -12,7 +12,7 @@
     <xs:element name="GetProductResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="list" type="tns:list"/>
+                <xs:element name="list" type="tns:listOfProducts"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -27,16 +27,16 @@
     </xs:complexType>
 
     <!--    list-->
-    <xs:complexType name="list">
+    <xs:complexType name="listOfProducts">
         <xs:sequence>
             <xs:element name="product" type="tns:product" maxOccurs="unbounded" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
 
     <!-- list-->
-    <xs:complexType name="listName">
+    <xs:complexType name="listOfUuid">
         <xs:sequence>
-            <xs:element name="name" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
+            <xs:element name="uuid" type="xs:string" maxOccurs="unbounded" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
 

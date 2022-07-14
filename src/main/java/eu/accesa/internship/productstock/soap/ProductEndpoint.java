@@ -4,8 +4,8 @@ import eu.accesa.internship.productstock.ProductRepository;
 import eu.accesa.internship.productstock.model.Product;
 import localhost._8082.soap_products.GetProductRequest;
 import localhost._8082.soap_products.GetProductResponse;
-import localhost._8082.soap_products.List;
-import localhost._8082.soap_products.ListName;
+import localhost._8082.soap_products.ListOfProducts;
+import localhost._8082.soap_products.ListOfUuid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +34,12 @@ public class ProductEndpoint {
         logger.info("Creating response");
 
         GetProductResponse response = new GetProductResponse();
-        List productListResponse = new List();
+        ListOfProducts productListResponse = new ListOfProducts();
         response.setList(productListResponse);
-        ListName products = request.getList();
+        ListOfUuid products = request.getList();
 
-        for (String name : products.getName()) {
-            Optional<Product> product = productRepository.findByName(name);
+        for (String uuid : products.getUuid()) {
+            Optional<Product> product = productRepository.findByName(uuid);
             product.ifPresent(value -> response.getList().getProduct().add(convertToSOAPObj(product.get())));
         }
         logger.info("Sending response: " + request.getList().toString());
